@@ -1,5 +1,5 @@
 ---
-# この3行がないとJekyllがinclude命令等を実行してくれるので消さないように！
+# この前後3行がないとJekyllがinclude命令等を実行してくれるので消さないように！
 ---
 
 <!DOCTYPE html>
@@ -7,7 +7,7 @@
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Bootstrap JavaScriptの使い方</title>
+  <title>Jekyllの使い方</title>
 
   <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -26,115 +26,55 @@
 <body>
 {% include header.html %}
 <div class="container">
-  <h1>Bootstrap JavaScriptの使い方</h1>
+  <h1>Jekyllの使い方</h1>
   <hr>
-  <h2>jQuery超基礎</h2>
+  <h2>Jekyll概要</h2>
   <hr>
-  <h3>jQuery関数 <code>jQuery()</code> と <code>$()</code></h3>
   <p>
-    jQueryの <code>jQuery()</code> 関数は、一般的にはそのショートカット形式である <code>$()</code> を通して利用されます。
-    <code>$()</code> という名前を使う別のライブラリと競合して使う場合には <code>jQuery()</code> を使う必要がありますが、
-    通常ブラウザでjQueryのJavaScriptコードを書く上では特に気にせず <code>$()</code> を使って良いでしょう。
+    <a href="https://jekyllrb-ja.github.io/" target="_blank">Jekyll</a>はHTMLやMarkDown等で書いたテキストにテンプレート機能や変数、繰り返しなど、
+    簡単なプログラム処理を追加してWebサイトHTMLを生成することができるツールです。
+    Jekyllでビルドした結果は通常の静的なHTMLファイルになるので、Webサーバを選ばず利用することが可能です。
   </p>
-  <h3>セレクタによるHTML要素の指定</h3>
+  <h2>Jekyllで処理されるファイルとされないファイル</h2>
   <p>
-    jQueryを使う上で最低限理解しなければいけないのは <strong>セレクタによるHTML要素指定</strong>です。
-    jQueryでのHTML要素操作には基本的にCSSセレクタを使ってHTML中の特定要素を指定します。
-  </p>
-  <p>
-    例えば、以下の様なHTMLがあるとします。
-  </p>
-  <figure class="highlight">
-    <pre>
-&#x3C;html&#x3E;
-&#x3C;head&#x3E;&#x3C;title&#x3E;sample&#x3C;/title&#x3E;&#x3C;/head&#x3E;
-&#x3C;body&#x3E;
-  &#x3C;h1&#x3E;&#x898B;&#x51FA;&#x3057;01&#x3C;/h1&#x3E;
-  &#x3C;p&#x3E;&#x672C;&#x6587;&#x3C;/p&#x3E;
-&#x3C;/body&#x3E;
-&#x3C;/html&#x3E;</pre>
-  </figure>
-  <p>この時、見出し部分をjQueryで指定するには</p>
-  <figure class="highlight">
-    <pre>
-$('h1');</pre>
-  </figure>
-  <p>とします。</p>
-  <p>
-    ChromeのDeveloper ToolsにあるConsole機能では、今開いているページに対して直接JavaScirptを実行することができますので、実際にこのページで試してみると良いでしょう。なお変更した内容をリセットしたい場合はブラウザをリロードすればOKです。
-  </p>
-
-  <h3>指定要素に対する操作</h3>
-  <p>
-    単に <code>$('h1');</code> としただけでは <code>[h1, prevObject: jQuery.fn.init(1)]</code> といったメッセージが表示されるだけかと思いますので、次はこの要素を操作してみましょう。以下のコードをChromeのConsoleタブで実行します。
-  </p>
-  <figure class="highlight">
-    <pre>
-$('h1').text('ほげほげ');</pre>
-  </figure>
-  <p>
-    すると、今表示しているページのh1見出し部分が「ほげほげ」に置き換わったと思います。<a href="http://api.jquery.com/text/" target="_blank">jQueryの.text()メソッド</a>は対象となるタグ内の文字列を置き換える機能がありますので、書き換わったわけです。
+    外部ファイルのincludeや変数、繰り返しといったJekyllの機能を使いたいファイルには <a href="http://jekyllrb-ja.github.io/docs/frontmatter/">Front-matter</a> と呼ばれる特別なブロックをファイル先頭に記述する必要があります。
+    <b>Front-matterのないHTMLファイルにJekyllのテンプレートタグ（Liquidタグ）を書いても動作しない</b>ので、注意しましょう。
   </p>
   <p>
-    同じように今度は以下のコードを実行してみましょう（※全て半角です。中括弧・丸括弧の違いに注意）
+    例えば、このファイル（index.html）の先頭には以下のFront-matterが記述されています。
   </p>
-  <pre>
-$('h1').animate({opacity: 0.25}, 1000);</pre>
+  <pre>---
+# この前後3行がないとJekyllがinclude命令等を実行してくれるので消さないように！
+---</pre>pre>
   <p>
-    実行すると、h1要素が1秒間かけて薄い色になったと思います。同じように元に戻すには
+    このハイフン3つで囲まれた領域がFront-matterで、<b>必ずファイルの1行目に書く必要があります</b>。
   </p>
-  <pre>
-$('h1').animate({opacity: 1}, 1000);</pre>
+  <hr>
+  <h2>Jekyllを手元で動かす</h2>
   <p>
-    とします。これは <a href="http://api.jquery.com/animate/" target="_blank">jQueryの.animate()メソッド</a>を使って対象となる要素をアニメーションさせたということになります。
+    Jekyllで処理される前提のHTMLは、そのままブラウザで開いてもJekyllのテンプレートが処理されない状態のままなので正しく表示されません。
+    そこで、手元で動作確認するにはJekyllサーバを起動する必要があります。
+    Jekyllのインストール作業が終わっているなら、WebStormの画面下部（Version Controlの右）にある「Terminal」をクリックして出てくるターミナルで以下のコマンドを実行します。
   </p>
+  <pre>bundle exec jekyll serve</pre>
   <p>
-    jQueryではこのようにして <strong><code>$()</code>メソッドで操作したい要素を特定し、取得した要素オブジェクトに対して操作したいメソッドを実行する</strong>のが基本になります。
+    正しくJekyllがインストールされていれば、流れてくる処理結果の中に <code>Server address: http://127.0.0.1:4000/</code>といった表示があると思います。このURLにアクセスすると、ローカルのJekyllサーバにアクセスすることができ、Jekyllで処理された結果のページをブラウザで確認することができます。
   </p>
-
-  <h3>要素操作の注意</h3>
+  <hr>
+  <h2>Jekyllで外部ファイルをincludeする</h2>
   <p>
-    jQueryのセレクタ指定では注意があります。このページで以下のコードを実行してみましょう。
+    <code>include</code>を使うとHTMLの中に他のHTML部品ファイルを挿入することができます。読み込みたいHTML部品ファイルは <code>_includes</code>フォルダの中に配置することになります。
+    このページでは <code>_includes</code>フォルダ内の <code>header.html</code>をbody開始タグ直後で以下のコードでincludeしています。
   </p>
-  <figure class="highlight">
-    <pre>
-$('h3').text('ほげほげ');</pre>
-  </figure>
+  <pre>{% raw %}{% include header.html %} {% endraw %}</pre>
   <p>
-    <strong>複数のh3見出しの文字列がそれぞれ置き換わった</strong>のに気付けるでしょうか？このように、jQueryでのセレクタ指定は <strong>指定にマッチした要素全てが取得されるため、必ずしも選択される要素が一つではない可能性があります</strong>。
-    そのため、<code>h3</code>や <code>p</code> といったタグそのものを指定してしまうと、元々指定したくなかった要素までまとめて指定してしまうことが多々あります。
-  </p>
-  <p>
-    こうした意図せぬ挙動を避けるために、HTML側にあらかじめjQueryから指定するための <code>class</code> を定義しておくという手がよく使われます。
-    これはCSSで使うクラスと同じ物を使っても良いのですが、JavaScript操作用にそれぞれ別のクラスを割り当てることもあります。
-  </p>
-  <p class="pickup-paragraph">
-    以下のコードを実行してみると、この段落だけ色が赤くなります。
-  </p>
-  <figure class="highlight">
-    <pre>
-$('p.pickup-paragraph').css('color', 'red');</pre>
-  </figure>
-  <p>
-    <a href="http://api.jquery.com/css/" target="_blank">.cssメソッドはCSSプロパティを上書きするjQuery関数</a>です。
-    今回jQueryでのセレクタ指定に <code>p.pickup-paragraph</code>を使ったため、pタグでもpickup-paragraphクラスが指定された要素のみが指定されました。
-    （実際にHTMLソースも確認してみて下さい）。
+    <code>header.html</code>も合わせて確認してみると分かりますが、header.htmlは <code>html</code>タグや <code>body</code> タグのない、通常のHTMLに挿入されることが前提の不完全なHTML部品になっています。
+    このように、Jekyllやその他のHTML部品化を行ったWebサイト開発では、単純な1枚もののHTMLページよりは多少複雑な構造となり、Webページの動作確認にJekyllサーバやそれに相当する環境（CGIやPHPサーバ）が必要になります。
   </p>
   <p>
-    以上の注意を気にしておけば、 <a href="http://getbootstrap.com/javascript/" target="_blank">Bootstrapに定義されているレベルのjQuery</a>なら見よう見まねでなんとか使えるかと思います。
-    とにかくJavaScriptに慣れていない内は <strong>ChromeのConsoleタブ</strong>を使ってエラーが出ていないかや、選択したい要素が選択できているかをチェックすると良いでしょう。
+    Jekyllには他にも変数や繰り返しを扱う方法がありますが、この授業では <code>include</code>のみ扱うので他にも興味のある人は <a
+      href="http://jekyllrb-ja.github.io/docs/templates/" target="_blank">公式サイトのテンプレートページ</a>等を眺めて見て下さい。
   </p>
-
-  <div class="row">
-    <div class="col-xs-12">12 xs</div>
-    <div class="col-xs-3"></div>
-    <div class="col-xs-3"></div>
-    <div class="col-xs-3"></div>
-    <div class="col-xs-3">
-      <img src="" alt="">
-    </div>
-  </div>
-
 </div>
 </body>
 </html>
